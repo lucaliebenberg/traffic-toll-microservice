@@ -20,7 +20,9 @@ type OBUData struct {
 	Long  float64 `json:"Long"`
 }
 
-// func sendOBUData(data OBUData) error {}
+func sendOBUData(data OBUData) error {
+	return nil
+}
 
 func genLatLong() (float64, float64) {
 	return genCoord(), genCoord()
