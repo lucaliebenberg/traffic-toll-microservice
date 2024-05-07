@@ -1,5 +1,5 @@
 # Traffic toll Microservice
-Project state > In development
+Project state -> In development
 
 ## Project outline
 - OBU -> data sender for coords
