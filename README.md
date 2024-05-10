@@ -14,9 +14,9 @@ Project state -> In development
 ## Installation
 
 1. Clone the repository:
-   ```bash
-   git clone https://github.com/lucaliebenberg/traffic-toll-microservice.git
-   ```
+```bash
+git clone https://github.com/lucaliebenberg/traffic-toll-microservice.git
+```
 
 2. Build the project:
   ```bash
