@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"log"
 	"math"
 	"math/rand"
@@ -31,7 +30,7 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	fmt.Println(conn)
+	// fmt.Println(conn)
 	for {
 		for i := 0; i < len(obuIDs); i++ {
 			lat, long := genLatLong()
@@ -40,7 +39,7 @@ func main() {
 				Lat:   lat,
 				Long:  long,
 			}
-			fmt.Printf("%v\n", data)
+			// fmt.Printf("%v\n", data)
 			if err := conn.WriteJSON(data); err != nil {
 				log.Fatal(err)
 			}

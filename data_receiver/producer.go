@@ -2,7 +2,6 @@ package main
 
 import (
 	"encoding/json"
-	"fmt"
 
 	"github.com/confluentinc/confluent-kafka-go/kafka"
 	"github.com/lucaliebenberg/tolling/types"
@@ -14,9 +13,10 @@ type DataProducer interface {
 
 type KafkaProducer struct {
 	producer *kafka.Producer
+	topic    string
 }
 
-func NewKafkaProducer() (*KafkaProducer, error) {
+func NewKafkaProducer(topic string) (DataProducer, error) {
 	p, err := kafka.NewProducer(&kafka.ConfigMap{"bootstrap.servers": "localhost"})
 	if err != nil {
 		return nil, err
@@ -27,15 +27,16 @@ func NewKafkaProducer() (*KafkaProducer, error) {
 			switch ev := e.(type) {
 			case *kafka.Message:
 				if ev.TopicPartition.Error != nil {
-					fmt.Printf("Delivery failed: %v\n", ev.TopicPartition)
+					// fmt.Printf("Delivery failed: %v\n", ev.TopicPartition)
 				} else {
-					fmt.Printf("Delivered message to %v\n", ev.TopicPartition)
+					// fmt.Printf("Delivered message to %v\n", ev.TopicPartition)
 				}
 			}
 		}
 	}()
 	return &KafkaProducer{
 		producer: p,
+		topic:    topic,
 	}, nil
 }
 
@@ -46,7 +47,7 @@ func (p *KafkaProducer) ProduceData(data types.OBUData) error {
 	}
 	return p.producer.Produce(&kafka.Message{
 		TopicPartition: kafka.TopicPartition{
-			Topic:     &kafkaTopic,        // Kafka topic to which the message will be sent
+			Topic:     &p.topic,           // Kafka topic to which the message will be sent
 			Partition: kafka.PartitionAny, // Partition of the topic where the message will be sent
 		},
 		Value: b, // Serialized data to be sent as the message value
