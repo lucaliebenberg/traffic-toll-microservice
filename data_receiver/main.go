@@ -5,11 +5,45 @@ import (
 	"log"
 	"net/http"
 
+	"github.com/confluentinc/confluent-kafka-go/kafka"
 	"github.com/gorilla/websocket"
 	"github.com/lucaliebenberg/tolling/types"
 )
 
+const kafkaTopic = "obudata"
+
 func main() {
+	p, err := kafka.NewProducer(&kafka.ConfigMap{"bootstrap.servers": "localhost"})
+	if err != nil {
+		panic(err)
+	}
+
+	defer p.Close()
+
+	// Delivery report handler for produced messages
+	go func() {
+		for e := range p.Events() {
+			switch ev := e.(type) {
+			case *kafka.Message:
+				if ev.TopicPartition.Error != nil {
+					fmt.Printf("Delivery failed: %v\n", ev.TopicPartition)
+				} else {
+					fmt.Printf("Delivered message to %v\n", ev.TopicPartition)
+				}
+			}
+		}
+	}()
+
+	// Produce messages to topic (asynchronously)
+	topic := kafkaTopic
+	for i := 0; i < 10; i++ {
+		p.Produce(&kafka.Message{
+			TopicPartition: kafka.TopicPartition{Topic: &topic, Partition: kafka.PartitionAny},
+			Value:          []byte("test producing"),
+		}, nil)
+	}
+	return
+
 	receiver := NewDataReceiver()
 	http.HandleFunc("/ws", receiver.handleWS)
 	http.ListenAndServe(":3000", nil)
@@ -49,6 +83,6 @@ func (dr *DataReceiver) wsReceiveLoop() {
 			continue
 		}
 		fmt.Printf("received OBU data fr [%d] :: <lat %.2f, long %.2f> \n", data.OBUID, data.Lat, data.Long)
-		dr.msgch <- data
+		// dr.msgch <- data
 	}
 }

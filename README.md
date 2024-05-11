@@ -3,10 +3,10 @@ Project state -> In development
 
 ## Project outline
 - OBU -> data sender for coords
-- Receive -> receive data from OBU and sit on Apache Kafka queue
+- Receiver -> receive data from OBU and sit on Apache Kafka queue
 - Distance cal -> calculate the distance travelled from queue data
-- Invoice generator  -> Invoice generator for the customer
-- Invoice cal -> Invoice calculator using the distance travelled during delivery windows
+- Invoice generator  -> invoice generator for the customer
+- Invoice calculator -> invoice calculator using the distance travelled during delivery windows
 - Gateway -> API Gateway so data can be passed between the invoicer and invoice calculator
 - Promtetheus -> metrics
 - Grafana -> timeseries 
