@@ -1,7 +1,7 @@
 # Traffic toll Microservice
 Project state -> In development
 
-## Project outline
+## Services
 - OBU -> data sender for coords
 - Receiver -> receive data from OBU and sit on Apache Kafka queue
 - Distance cal -> calculate the distance travelled from queue data
