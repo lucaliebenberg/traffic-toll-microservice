@@ -12,7 +12,7 @@ import (
 
 const wsEndpoint = "ws://127.0.0.1:3000/ws"
 
-const sendInterval = time.Second
+const sendInterval = time.Second * 5
 
 func genLatLong() (float64, float64) {
 	return genCoord(), genCoord()
