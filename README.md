@@ -11,10 +11,6 @@ Project state -> In development
 - Promtetheus -> metrics
 - Grafana -> timeseries 
 
-```
-docker run --name kafka -p 9092:9092 -e ALLOW_PLAINTEXT_LISTENER=yes -e KAFKA_CFG_AUTO_CREATE_TOPICS_ENABLE=true bitnami/kafka:latest
-```
-
 ## Installation
 
 1. Clone the repository:
@@ -28,9 +24,24 @@ git clone https://github.com/lucaliebenberg/traffic-toll-microservice.git
   ```
 
 3. Run the project:
-  ```bash
-  ./traffic-toll-microservice/bin
-  ```
+```
+docker run --name kafka -p 9092:9092 -e ALLOW_PLAINTEXT_LISTENER=yes -e KAFKA_CFG_AUTO_CREATE_TOPICS_ENABLE=true bitnami/kafka:latest # docker container
+```
+```
+make run receiver # terminal 1
+
+make run calculator # terminal 2
+
+make run agg # terminal 3
+
+make obu # terminal 4
+```
+
+4. To run executable bin file:
+```bash
+./traffic-toll-microservice/bin
+```
+
 ## Contributing
 If you would like to contribute to the project, please follow these steps:
   1. Fork the repository.
