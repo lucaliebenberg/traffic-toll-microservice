@@ -14,10 +14,10 @@ type CalculatorServicer interface {
 
 type CalculateService struct {
 	prevPoint []float64
-	aggClient client.Client
+	aggClient *client.Client
 }
 
-func NewCalculatorService() CalculatorServicer {
+func NewCalculatorService(c *client.Client) CalculatorServicer {
 	return &CalculateService{}
 }
 
