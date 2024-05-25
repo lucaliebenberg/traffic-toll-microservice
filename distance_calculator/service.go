@@ -3,6 +3,7 @@ package main
 import (
 	"math"
 
+	"github.com/lucaliebenberg/tolling/aggregator/client"
 	"github.com/lucaliebenberg/tolling/types"
 )
 
@@ -13,6 +14,7 @@ type CalculatorServicer interface {
 
 type CalculateService struct {
 	prevPoint []float64
+	aggClient client.Client
 }
 
 func NewCalculatorService() CalculatorServicer {
