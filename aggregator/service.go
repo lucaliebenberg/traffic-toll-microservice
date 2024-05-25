@@ -7,7 +7,7 @@ import (
 )
 
 type Aggregator interface {
-	AggregateDistnace(types.Distance) error
+	AggregateDistance(types.Distance) error
 }
 
 type Storer interface {
@@ -24,7 +24,7 @@ func NewInvoiceAggregator(store Storer) *InvoiceAggregator {
 	}
 }
 
-func (i *InvoiceAggregator) AggregateDistnace(distance types.Distance) error {
+func (i *InvoiceAggregator) AggregateDistance(distance types.Distance) error {
 	fmt.Println("processing and inserting distance into storage; ", distance)
 	return i.store.Insert(distance)
 }
