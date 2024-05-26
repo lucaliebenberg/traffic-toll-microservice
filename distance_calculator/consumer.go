@@ -59,10 +59,6 @@ func (c *KafkaConsumer) readMessageLoop() {
 			logrus.Errorf("Service calculation error %s", err)
 			continue
 		}
-		if err != nil {
-			logrus.Errorf("calculation error %s", err)
-			continue
-		}
 		req := types.Distance{
 			Value: distance,
 			Unix:  time.Now().UnixNano(),

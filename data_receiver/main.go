@@ -15,7 +15,7 @@ func main() {
 		log.Fatal(err)
 	}
 	http.HandleFunc("/ws", receiver.handleWS)
-	http.ListenAndServe(":3000", nil)
+	http.ListenAndServe(":30000", nil)
 }
 
 type DataReceiver struct {
@@ -61,6 +61,7 @@ func (dr *DataReceiver) handleWS(w http.ResponseWriter, r *http.Request) {
 
 func (dr *DataReceiver) wsReceiveLoop() {
 	fmt.Println("New OBU connected client connected")
+
 	for {
 		var data types.OBUData
 		if err := dr.conn.ReadJSON(&data); err != nil {
