@@ -39,9 +39,14 @@ func handleGetInvoice(svc Aggregator) http.HandlerFunc {
 		obuID, err := strconv.Atoi(values[0])
 		if err != nil {
 			writeJSON(w, http.StatusBadRequest, map[string]string{"error": "invalid OBU ID"})
+			return
 		}
-		distance, er := svc.DistanceSum(obuID)
-		w.Write([]byte("need to return the invoice for the OBU ID"))
+		invoice, err := svc.CalculateInvoice(obuID)
+		if err != nil {
+			writeJSON(w, http.StatusInternalServerError, map[string]string{"error": err.Error()})
+			return
+		}
+		writeJSON(w, http.StatusOK, invoice)
 	}
 }
 
