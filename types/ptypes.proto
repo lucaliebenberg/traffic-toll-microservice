@@ -2,13 +2,13 @@ syntax = "proto3";
 
 option go_package = "github.com/lucaliebenberg/tolling/types";
 
-service DistanceAggregator {
-    rpc DistanceAggregator(AggregateDistanceRequest) returns (None);
+service Aggregator {
+    rpc DistanceAggregator(AggregateRequest) returns (None);
 }
 
 message None {};
 
-message AggregateDistanceRequest {
+message AggregateRequest {
     int32 ObuID = 1;
     double Value = 2;
     int64 Unix = 3;
