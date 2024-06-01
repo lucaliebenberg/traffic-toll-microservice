@@ -2,13 +2,13 @@ package main
 
 import "github.com/lucaliebenberg/tolling/types"
 
-type GRPCServer struct {
+type GRPCAggregatorServer struct {
 	types.UnimplementedAggregatorServer
 	svc Aggregator
 }
 
-func NewGRPCServer(svc Aggregator) *GRPCServer {
-	return &GRPCServer{
+func NewAggregatorGRPCServer(svc Aggregator) *GRPCAggregatorServer {
+	return &GRPCAggregatorServer{
 		svc: svc,
 	}
 }
@@ -21,7 +21,7 @@ func NewGRPCServer(svc Aggregator) *GRPCServer {
 // BUSINESS LAYER
 // business layer type (main type everyone needs to conver to)
 
-func (s *GRPCServer) AggregateDistance(req *types.AggregateRequest) error {
+func (s *GRPCAggregatorServer) AggregateDistance(req *types.AggregateRequest) error {
 	distance := types.Distance{
 		OBUID: int(req.ObuID),
 		Value: req.Value,
