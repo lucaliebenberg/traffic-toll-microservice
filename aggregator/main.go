@@ -29,7 +29,7 @@ func makeGRPCTransport(listenAddr string) error {
 	if err != nil {
 		return err
 	}
-	server := grpc.NewServer([]grpc.ServerOption{})
+	server := grpc.NewServer([]grpc.ServerOption{}...)
 	return server.Serve(ln)
 }
 
