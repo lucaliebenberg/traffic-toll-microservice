@@ -13,7 +13,7 @@ type HTTPClient struct {
 	Endpoint string
 }
 
-func NewClient(endpoint string) *HTTPClient {
+func NewHTTPClient(endpoint string) *HTTPClient {
 	return &HTTPClient{
 		Endpoint: endpoint,
 	}
@@ -25,6 +25,9 @@ func (c *HTTPClient) AggregateInvoice(distance types.Distance) error {
 		return err
 	}
 	req, err := http.NewRequest("POST", c.Endpoint, bytes.NewReader(b))
+	if err != nil {
+		return err
+	}
 	resp, err := http.DefaultClient.Do(req)
 	if err != nil {
 		return err
