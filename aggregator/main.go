@@ -39,7 +39,10 @@ func makeGRPCTransport(listenAddr string, svc Aggregator) error {
 		return err
 	}
 	// close connection if err
-	defer ln.Close()
+	defer func() {
+		fmt.Println("Stopping GRPC transport")
+		ln.Close()
+	}()
 	// Make a new GRPC native server with (options)
 	server := grpc.NewServer([]grpc.ServerOption{}...)
 	// Register our GRPC server implementation to the GRPC package
