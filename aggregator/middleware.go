@@ -20,20 +20,20 @@ type MetricsMiddleware struct {
 func NewMetricsMiddleware(next Aggregator) *MetricsMiddleware {
 	reqCounterAgg := promauto.NewCounter(prometheus.CounterOpts{
 		Namespace: "aggregator_request_counter",
-		Name:      "aggregator_request_counter",
+		Name:      "aggregate_request_total",
 	})
 	reqCounterCalc := promauto.NewCounter(prometheus.CounterOpts{
 		Namespace: "aggregator_request_counter",
-		Name:      "aggregator_request_counter",
+		Name:      "calculate_invoice_request_total",
 	})
 	reqLatencyAgg := promauto.NewHistogram(prometheus.HistogramOpts{
 		Namespace: "aggregator_request_latency",
-		Name:      "aggregator_request_latency",
+		Name:      "aggregate_request_latency_seconds",
 		Buckets:   []float64{0.1, 0.5, 1},
 	})
 	reqLatencyCalc := promauto.NewHistogram(prometheus.HistogramOpts{
 		Namespace: "aggregator_request_latency",
-		Name:      "aggregator_request_latency",
+		Name:      "calculate_invoice_request_latency_seconds",
 		Buckets:   []float64{0.1, 0.5, 1},
 	})
 	return &MetricsMiddleware{
